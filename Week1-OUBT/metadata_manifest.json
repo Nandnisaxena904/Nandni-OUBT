@@ -1,0 +1,29 @@
+{
+    "bucket_name": "nandni-oubt",
+    "purpose": "Stores raw and curated data for practicing Data engineering with AWS during OUBT internship",
+    "owner": {
+        "team": "OUBT Data Engineering",
+        "email": "nandnisaxena904@gmail.com"
+    },
+    "data_domain": "Training",
+    "classification": "Confidential",
+    "technical_metadata": {
+        "storage_format": [
+            "csv",
+            "parquet"
+        ],
+        "region": "us-west-2",
+        "versioning_enabled": true
+    },
+    "access_governance": {
+        "read_access": [
+            "AnalyticsRole",
+            "FinanceRole"
+        ],
+        "write_access": [
+            "DataEngineeringRole"
+        ],
+        "pii_present": true
+    },
+    "created_date": "2025-12-24T03:30:08.233363+00:00"
+}
