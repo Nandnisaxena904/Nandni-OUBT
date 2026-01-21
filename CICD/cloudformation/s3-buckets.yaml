@@ -1,71 +1,29 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Description: "Create S3 Data Lake Folders for NYC Taxi ETL"
+AWSTemplateFormatVersion: '2010-09-09'
+Description: NYC Taxi Data Lake S3 Bucket
 
 Parameters:
   DataLakeBucketName:
     Type: String
-    Description: "Name of the S3 data lake bucket"
+    Description: Name of the S3 data lake bucket
 
 Resources:
   DataLakeBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref DataLakeBucketName
+      VersioningConfiguration:
+        Status: Enabled
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
+              SSEAlgorithm: aws:kms
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
-
-  RawFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: raw/
-      StorageClass: STANDARD
-
-  ProcessedFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: processed/
-      StorageClass: STANDARD
-
-  CuratedFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: curated/
-      StorageClass: STANDARD
-
-  MasterFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: master/
-      StorageClass: STANDARD
-
-  ReferenceFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: reference/
-      StorageClass: STANDARD
-
-  SqlFolder:
-    Type: AWS::S3::Object
-    Properties:
-      Bucket: !Ref DataLakeBucket
-      Key: sql/
-      StorageClass: STANDARD
 
 Outputs:
   DataLakeBucketName:
-    Description: "Name of the S3 Data Lake bucket"
+    Description: Data lake bucket name
     Value: !Ref DataLakeBucket
